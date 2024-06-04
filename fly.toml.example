@@ -1,0 +1,64 @@
+# fly.toml app configuration file generated for exposesh on 2024-05-15T17:03:59+02:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'exposesh'
+primary_region = 'cdg'
+
+[build]
+
+[env]
+  FLYDOTIO_APP_NAME = 'exposesh'
+  CONFIG_DIRECTORY = '/expose.sh/sshserver'
+  UNIX_SOCKETS_DIRECTORY = '/expose.sh/sshserver/sockets/'
+  HTTP_URL = 'expos.es'
+  SSH_SERVER_HOST = '0.0.0.0'
+  SSH_SERVER_PORT = '2222'
+  SSH_SERVER_URL = 'expose.sh'
+  NODEJS_TOOLS_PORT = '3000'
+  RATE_LIMIT_COUNT = '5'
+  RATE_LIMIT_INTERVAL = '60'
+  TIMEOUT = '15'
+  MAX_FREE_CONCURRENT_CONNECTIONS = '2'
+  CHECK_IF_TUNNEL_EXISTS = 'http://localhost:3000/checkIfTunnelExists'
+  BANNER_URL = 'http://localhost:3000/getBanner'
+  CACHE_ADD_URL = 'http://localhost:3000/addToNginxCache'
+  CACHE_REMOVE_URL = 'http://localhost:3000/removeFromNginxCache'
+  GENERATE_QRCODE_URL = 'http://localhost:3000/generateQRCode'
+  GET_ALL_INSTANCES_IPV6_URL = 'http://localhost:3000/getAllInstancesIPv6'
+  KEY_MATCHES_ACCOUNT_URL = 'http://localhost:3000/keyMatchesAccount'
+  IS_USER_SPONSOR_URL = 'http://localhost:3000/isUserSponsor'
+  WELCOME_BANNER_URL = ''
+  FREE_BANNER_URL = ''
+  PAID_BANNER_URL = ''
+  TROUBLE_BANNER_URL = ''
+  UNRECOGNISED_USER_BANNER_URL = ''
+  VERIFY_GITHUB_USER_AND_FETCH_SSH_KEYS_URL = ''
+  LOG_DEPTH = '2'
+  LOG_LEVEL = 'INFO'
+
+[http_service]
+  internal_port = 80
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[services]]
+  protocol = 'tcp'
+  internal_port = 2222
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+
+  [[services.ports]]
+    port = 22
+
+  [[services.tcp_checks]]
+    interval = '15s'
+    timeout = '2s'
+    grace_period = '1s'
+
+[[vm]]
+  size = 'shared-cpu-1x'
