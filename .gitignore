@@ -1,0 +1,5 @@
+node_modules/
+ssh_key*
+*.venv/
+fly.toml
+.idea/
