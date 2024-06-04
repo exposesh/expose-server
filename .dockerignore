@@ -1,0 +1,7 @@
+# flyctl launch added from .gitignore
+**/node_modules
+**/ssh_key*
+fly.toml
+fly.toml.example
+.idea/
+.github/
