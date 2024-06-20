@@ -388,7 +388,7 @@ async def handle_ssh_client(process) -> None:
         return
 
     if not socket_paths:
-        response = f"Usage: ssh -R /:host:port {ssh_server_url}\n"
+        response = f"Usage: ssh -R 1:host:port {ssh_server_url}\n"
         process.stdout.write(response + "\n")
         process.logger.info(
             "The user was ejected because they did not connect in port forwarding mode"
